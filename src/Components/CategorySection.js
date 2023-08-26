@@ -8,11 +8,11 @@ function CategoryTitle({title}) {
     );
 }
 
-export default function CategorySection({ title, images }) {
+export default function CategorySection({ title, images, offset }) {
     return (
         <div className="category-section">
             <CategoryTitle title={title}/>
-            <ImageSlider images={images} />
+            <ImageSlider images={images} offset={offset} />
         </div>
     );
 }

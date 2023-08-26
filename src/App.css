@@ -1,26 +1,52 @@
+.App{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f9f7f5;
+}
+
 .header {
   height: 10vh;  /* takes up 10% of the page's vertical height */
   text-align: center;
   font-size: 2em;  /* adjust as required */
   line-height: 10vh;  /* centers the text vertically */
+  color: #585558;
 }
 
 .category-sections {
   display: flex;
+  flex-direction: row;   /* By default, set to horizontal layout */
   justify-content: space-evenly;
   padding: 0 0 10px 0;
+  flex-grow: 4;
 }
+
+@media screen and (max-width: 500px) {
+  .category-sections{
+    flex-direction: column;
+    margin: 0px 30px 0px 30px;
+  }
+}
+
+
 
 .category-section {
   display: inline-block;  /* place them horizontally next to each other */
-  width: 20vw;  /* takes up 20% of the viewport width */
+  width: 100%;  /* takes up 20% of the viewport width */
   vertical-align: top;  /* aligns the top of each CategorySection */
-  padding: 0 10px;  /* padding on either side, adjust as required */
+  padding: 0 3px;  /* padding on either side, adjust as required */
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .category-title {
   display: flex;
   justify-content: center;
+  flex-grow: 0.3;
+  color: #585558;
+  font-size: 20px;
 }
 
 .image-slider {
@@ -28,9 +54,13 @@
   height: 60vh;  /* 3 times the width of the CategorySection */
   background-color: #e0e0e0;  /* adjust color as needed */
   position: relative;  /* to possibly position the ImageDisplay or DotIndicator absolutely within */
+  overflow: hidden;
 }
 
 .image-display {
+  position: absolute;
+  top: 100%; /* Initially position all images below the visible area */
+  transition: top 1s; /* Animation */
   width: 100%;  
   height: 100%; 
   display: flex;
@@ -42,11 +72,26 @@
   max-width: 100%;  
   max-height: 100%;
   object-fit: contain;  /* ensures that the image scales appropriately without stretching */
+  display: hidden;
 }
 
 
+.image-display.active {
+  top: 0;  /* Active image should be at the top */
+}
+
+.image-display.next {
+  top: -100%;  /* Next image should be above the active one */
+}
+
 .dot-indicator {
+  opacity: 0%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
+  margin-top: 15px;
   gap: 5px;
   justify-content: center;
 }
@@ -81,8 +126,8 @@
 .footer {
   display: flex;
   justify-content: center;
-  position: fixed; /* Keeps the footer fixed on the screen */
-  bottom: 0;       /* Anchors the footer to the bottom of the viewport */
+  align-items: center;
+  margin-top: auto;
   left: 0;         /* Ensures it spans from the left edge... */
   right: 0;        /* ... to the right edge */
   height: 10vh;     /* Takes up 5% of the viewport height */

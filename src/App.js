@@ -12,12 +12,14 @@ const artImages = [
 
 const cookingImages = [
   process.env.PUBLIC_URL + 'making_pasta.jpg',
-  process.env.PUBLIC_URL + 'making_pizza.jpg'
+  process.env.PUBLIC_URL + 'making_pizza.jpg',
+  process.env.PUBLIC_URL + 'culinary_school.jpg'
 ]
 
 const designImages = [
   process.env.PUBLIC_URL + 'ahhh.jpg',
-  process.env.PUBLIC_URL + 'caecus.jpg'
+  process.env.PUBLIC_URL + 'caecus.jpg',
+  process.env.PUBLIC_URL + 'sexy_coyote.jpg'
 ]
 
 const socialLinks = [
@@ -33,9 +35,9 @@ function App() {
     <div className="App">
       <Header/>
       <div className="category-sections">
-        <CategorySection title='Art' images={artImages}/>
-        <CategorySection title='Cooking' images={cookingImages}/>
-        <CategorySection title='Design' images={designImages}/>  
+        <CategorySection title='Art' images={artImages} offset={1500}/>
+        <CategorySection title='Cooking' images={cookingImages} offset={0}/>
+        <CategorySection title='Design' images={designImages} offset={750}/>  
       </div>
       <Footer socialLinks={socialLinks}/>
     </div>

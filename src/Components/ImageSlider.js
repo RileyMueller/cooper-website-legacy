@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 
-function ImageDisplay({ src }) {
+function ImageDisplay({ src, isActive, isNext }) {
     return (
-        <div className="image-display">
+        <div className={`image-display ${isActive ? 'active' : ''} ${isNext ? 'next' : ''}`}>
             <img src={src} alt="Category Image" />
         </div>
     );
 }
+
 
 function DotIndicator({ totalDots, activeDot, onClick }) {
     return (
@@ -22,20 +23,29 @@ function DotIndicator({ totalDots, activeDot, onClick }) {
     );
 }
 
-export default function ImageSlider({ images }) {
+export default function ImageSlider({ images, offset = 0 }) {
     const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
             setActiveIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 5000); // Change every 5 seconds
+        }, 5000 + offset); // Change every 5 seconds
 
-        return () => clearInterval(interval); // Cleanup the interval on component unmount
+        return () => clearInterval(interval); // Cleanup the interval on component unmount    
+    
+        
     }, [images]);
 
     return (
         <div className="image-slider">
-            <ImageDisplay src={images[activeIndex]} />
+            {images.map((src, index) => (
+                <ImageDisplay 
+                    key={index}
+                    src={src} 
+                    isActive={index === activeIndex}
+                    isNext={(index - 1 === activeIndex) || (activeIndex === 0 && index === images.length - 1)}
+                />
+            ))}
             <DotIndicator 
                 totalDots={images.length} 
                 activeDot={activeIndex} 
